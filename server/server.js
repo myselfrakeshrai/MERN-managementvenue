@@ -1,8 +1,6 @@
 import express from "express";
-import mysql from "mysql";
 import dotenv from "dotenv";
 import connectDatabase from "./config/MongoDb.js";
-import ImportData from "./DataImport.js";
 import productRoute from "./Routes/ProductRoutes.js";
 import invitationRoute from "./Routes/InvitationRoutes.js";
 import vendorRoute from "./Routes/VendorRoutes.js";
@@ -17,7 +15,7 @@ app.use(express.json());
 
 // API
 app.use("/api/products", productRoute);
-app.use("/api/invitations", invitationRoute);npm 
+app.use("/api/invitations", invitationRoute); 
 app.use("/api/vendors", vendorRoute);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
