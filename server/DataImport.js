@@ -7,6 +7,9 @@ import asyncHandler from "express-async-handler";
 import Invitation from "./Models/InvitationModel.js";
 import invitations from "./data/Invitations.js";
 import Vendor from "./Models/VendorModel.js";
+import invitations from "./data/Vendor.js";
+import Gift from "./Models/GiftModel.js";
+import Gift from "./Models/Gift.js";
 
 const ImportData = express.Router();
 
@@ -41,8 +44,17 @@ ImportData.post(
   "/vendors",
   asyncHandler(async (req, res) => {
     await Vendor.remove({});
-    const importVendor = await Vendor.insertMany(invitations);
+    const importVendor = await Vendor.insertMany(vendors);
     res.send({ importVendor });
+  })
+);
+
+ImportData.post(
+  "/vendors",
+  asyncHandler(async (req, res) => {
+    await Vendor.remove({});
+    const importGift = await Vendor.insertMany(invitations);
+    res.send({ importGift });
   })
 );
 

@@ -18,8 +18,10 @@ import PrivateRouter from "./PrivateRouter";
 import Planning from "./screens/Planning";
 import invitations from "./screens/invitations";
 import venue from "./screens/venue";
+import gift from "./screens/gift";
 import SingleInvitation from "./screens/SingleInvitation";
 import vendors from "./screens/vendors";
+import SingleVendor from "./screens/SingleVendor";
 
 const App = () => {
   return (
@@ -35,6 +37,7 @@ const App = () => {
         />
         <Route path="/products/:id" component={SingleProduct} />
         <Route path="/invitations/:id" component={SingleInvitation} />
+        <Route path="/vendors/:id" component={SingleVendor} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <PrivateRouter path="/profile" component={ProfileScreen} />
@@ -46,6 +49,7 @@ const App = () => {
         <Route path="/planning" component={Planning} />
         <Route path="/invitations" component={invitations} />
         <Route path="/venue" component={venue} />
+        <Route path="/gift" component={gift} />
         <Route path="/vendors" component={vendors} />
         <Route path="*" component={NotFound} />
       </Switch>

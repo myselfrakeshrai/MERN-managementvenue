@@ -7,6 +7,11 @@ import {
   productListReducer,
 } from "./Reducers/ProductReducers";
 import {
+  giftCreateReviewReducer,
+  giftDetailsReducer,
+  giftListReducer,
+} from "./Reducers/GiftReducers";
+import {
   vendorCreateReviewReducer,
   vendorDetailsReducer,
   vendorListReducer,
@@ -35,6 +40,9 @@ const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productReviewCreate: productCreateReviewReducer,
+  giftList: giftListReducer,
+  giftDetails: giftDetailsReducer,
+  giftReviewCreate: giftCreateReviewReducer,
   vendorList: vendorListReducer,
   vendorDetails: vendorDetailsReducer,
   vendorReviewCreate: vendorCreateReviewReducer,

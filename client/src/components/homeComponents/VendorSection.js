@@ -59,7 +59,7 @@ const VendorSection = (props) => {
                             <h3>NRs. {vendor.price}</h3>
                             </div>
                             <div className="col">
-                            <h3>Venue</h3>
+                            <h3>Vendor</h3>
                             </div>
                           </div>       
                           </div>

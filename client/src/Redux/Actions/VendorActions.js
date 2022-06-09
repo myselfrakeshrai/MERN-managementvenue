@@ -19,7 +19,7 @@ export const listVendor =
     try {
       dispatch({ type: VENDOR_LIST_REQUEST });
       const { data } = await axios.get(
-        `/api/vendors?keyword=${keyword}&pageNumber=${pageNumber}`
+        `/api/vendors?`
       );
       dispatch({ type: VENDOR_LIST_SUCCESS, payload: data });
     } catch (error) {

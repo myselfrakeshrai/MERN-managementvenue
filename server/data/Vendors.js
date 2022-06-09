@@ -1,4 +1,4 @@
-const invitations = [
+const vendors = [
   {
     name: "Velcro Ballerinas For Girls  (Pink)",
     image: "/images/6.png",
@@ -61,4 +61,4 @@ const invitations = [
   },
 ];
 
-export default invitations;
+export default vendors;
