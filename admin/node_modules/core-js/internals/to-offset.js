@@ -1,10 +1,10 @@
-var global = require('../internals/global');
+'use strict';
 var toPositiveInteger = require('../internals/to-positive-integer');
 
-var RangeError = global.RangeError;
+var $RangeError = RangeError;
 
 module.exports = function (it, BYTES) {
   var offset = toPositiveInteger(it);
-  if (offset % BYTES) throw RangeError('Wrong offset');
+  if (offset % BYTES) throw new $RangeError('Wrong offset');
   return offset;
 };

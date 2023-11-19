@@ -6,6 +6,7 @@ var fixRegExpWellKnownSymbolLogic = require('../internals/fix-regexp-well-known-
 var fails = require('../internals/fails');
 var anObject = require('../internals/an-object');
 var isCallable = require('../internals/is-callable');
+var isNullOrUndefined = require('../internals/is-null-or-undefined');
 var toIntegerOrInfinity = require('../internals/to-integer-or-infinity');
 var toLength = require('../internals/to-length');
 var toString = require('../internals/to-string');
@@ -63,7 +64,7 @@ fixRegExpWellKnownSymbolLogic('replace', function (_, nativeReplace, maybeCallNa
     // https://tc39.es/ecma262/#sec-string.prototype.replace
     function replace(searchValue, replaceValue) {
       var O = requireObjectCoercible(this);
-      var replacer = searchValue == undefined ? undefined : getMethod(searchValue, REPLACE);
+      var replacer = isNullOrUndefined(searchValue) ? undefined : getMethod(searchValue, REPLACE);
       return replacer
         ? call(replacer, searchValue, O, replaceValue)
         : call(nativeReplace, toString(O), searchValue, replaceValue);
@@ -87,13 +88,16 @@ fixRegExpWellKnownSymbolLogic('replace', function (_, nativeReplace, maybeCallNa
       if (!functionalReplace) replaceValue = toString(replaceValue);
 
       var global = rx.global;
+      var fullUnicode;
       if (global) {
-        var fullUnicode = rx.unicode;
+        fullUnicode = rx.unicode;
         rx.lastIndex = 0;
       }
+
       var results = [];
+      var result;
       while (true) {
-        var result = regExpExec(rx, S);
+        result = regExpExec(rx, S);
         if (result === null) break;
 
         push(results, result);
@@ -111,6 +115,7 @@ fixRegExpWellKnownSymbolLogic('replace', function (_, nativeReplace, maybeCallNa
         var matched = toString(result[0]);
         var position = max(min(toIntegerOrInfinity(result.index), S.length), 0);
         var captures = [];
+        var replacement;
         // NOTE: This is equivalent to
         //   captures = result.slice(1).map(maybeToString)
         // but for some reason `nativeSlice.call(result, 1, result.length)` (called in
@@ -121,7 +126,7 @@ fixRegExpWellKnownSymbolLogic('replace', function (_, nativeReplace, maybeCallNa
         if (functionalReplace) {
           var replacerArgs = concat([matched], captures, position, S);
           if (namedCaptures !== undefined) push(replacerArgs, namedCaptures);
-          var replacement = toString(apply(replaceValue, undefined, replacerArgs));
+          replacement = toString(apply(replaceValue, undefined, replacerArgs));
         } else {
           replacement = getSubstitution(matched, S, position, captures, namedCaptures, replaceValue);
         }
@@ -130,6 +135,7 @@ fixRegExpWellKnownSymbolLogic('replace', function (_, nativeReplace, maybeCallNa
           nextSourcePosition = position + matched.length;
         }
       }
+
       return accumulatedResult + stringSlice(S, nextSourcePosition);
     }
   ];
